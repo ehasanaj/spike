@@ -10,7 +10,7 @@ pub enum IssuesError {
     FailedToCommentOnIssue(StatusCode, String),
 }
 
-pub async fn comment_on_issue(issue_key: &str, comment: &str) -> Result<(), Box<dyn Error>> {
+pub async fn comment_on_issue(issue_key: &str, comment: &str) -> Result<String, Box<dyn Error>> {
     let response = jira_service::post(&format!("issue/{}/comment", issue_key), &json!({ "body": {
             "type": "doc",
             "version": 1,
@@ -32,5 +32,5 @@ pub async fn comment_on_issue(issue_key: &str, comment: &str) -> Result<(), Box<
         let response_body = response.text().await?;
         return Err(IssuesError::FailedToCommentOnIssue(status_code, response_body).into());
     }
-    Ok(())
+    Ok(format!("Commented on issue: {}", issue_key).to_string())
 }
