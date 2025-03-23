@@ -8,7 +8,7 @@ pub enum JiraApiError {
     MissingEnvironmentVariable(String),
 }
 
-pub async fn post(path: &str, body: Value) -> Result<Response, Box<dyn Error>> {
+pub async fn post(path: &str, body: &Value) -> Result<Response, Box<dyn Error>> {
     let base_url = get_env_var("JIRA_BASE_URL")?;
     let username = get_env_var("JIRA_USERNAME")?;
     let api_token = get_env_var("JIRA_API_TOKEN")?;

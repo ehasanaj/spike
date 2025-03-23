@@ -11,7 +11,7 @@ pub enum IssuesError {
 }
 
 pub async fn comment_on_issue(issue_key: &str, comment: &str) -> Result<(), Box<dyn Error>> {
-    let response = jira_service::post(&format!("issue/{}/comment", issue_key), json!({ "body": {
+    let response = jira_service::post(&format!("issue/{}/comment", issue_key), &json!({ "body": {
             "type": "doc",
             "version": 1,
             "content": [
